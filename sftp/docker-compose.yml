@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  sftp:
+    container_name: sftp_napas
+    volumes:
+      - data:/var/lib/docker/volumes/sftp_data/_data
+    image: atmoz/sftp:alpine
+    ports:
+      - "9922:22"
+    command: foo:pass:1001:12345:/foo-home
+    networks:
+      - turreta_network
+
+networks:
+  turreta_network:
+    driver: bridge
+
+volumes:
+  data:

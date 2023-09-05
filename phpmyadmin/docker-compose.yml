@@ -1,0 +1,28 @@
+version: '3'
+
+services:
+  mysqlv2:
+    image: mysql
+    container_name: mysqlv2
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=middleware
+    ports:
+      - "6033:3306"
+    volumes:
+      - mysql_data_v2:/var/lib/mysql
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: phpmyadmin
+    links:
+      - mysqlv2
+    environment:
+      - PMA_HOST=mysqlv2
+      - PMA_PORT=6033
+      - PMA_ARBITRARY=1
+      - PMA_USER=root
+      - PMA_PASSWORD=password
+    ports:
+      - 9001:80
+volumes:
+  mysql_data_v2:
